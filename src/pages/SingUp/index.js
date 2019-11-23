@@ -1,9 +1,11 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {Image} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 
 import logo from '~/assets/logo.png';
 
 import Background from '~/components/Background';
+import {singUpRequest} from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -18,7 +20,17 @@ export default function SingUp({navigation}) {
   const emailRef = useRef();
   const passwordRef = useRef();
 
-  function handleSubmit() {}
+  const dispatch = useDispatch();
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const loading = useSelector(state => state.auth.loading);
+
+  function handleSubmit() {
+    dispatch(singUpRequest(name, email, password));
+  }
 
   return (
     <Background>
@@ -32,6 +44,8 @@ export default function SingUp({navigation}) {
             placeholder="Nome completo"
             returnKeyType="next"
             onSubmitEditing={() => emailRef.current.focus()}
+            value={name}
+            onChangeText={setName}
           />
 
           <FormInput
@@ -42,6 +56,8 @@ export default function SingUp({navigation}) {
             ref={emailRef}
             returnKeyType="next"
             onSubmitEditing={() => passwordRef.current.focus()}
+            value={email}
+            onChangeText={setEmail}
           />
 
           <FormInput
@@ -50,10 +66,14 @@ export default function SingUp({navigation}) {
             placeholder="Sua senha"
             ref={passwordRef}
             returnKeyType="send"
-            onSubmitEditing={() => handleSubmit}
+            value={password}
+            onChangeText={setPassword}
+            onSubmitEditing={handleSubmit}
           />
 
-          <SubmitButton onPress={() => {}}>Criar conta gratuita</SubmitButton>
+          <SubmitButton loading={loading} onPress={handleSubmit}>
+            Criar conta
+          </SubmitButton>
         </Form>
 
         <SingLink onPress={() => navigation.navigate('SingIn')}>

@@ -34,6 +34,7 @@ module.exports = {
       'no-console': ["error", { allow: ["tron"]}],
       'no-param-reassign': 'off',
       'no-underscore-dangle': 'off',
+      'no-undef': 'off',
       'prettier/prettier': 'error',
       'react/jsx-filename-extension': [
           'warn',
