@@ -1,8 +1,12 @@
 import React from 'react';
-import {Text} from 'react-native';
-
-// import { Container } from './styles';
+import {StatusBar} from 'react-native';
+import Routes from './routes';
 
 export default function App() {
-  return <Text>Página inicial</Text>;
+  return (
+    <>
+      <StatusBar barStyle="light-content" background="#7159c1" />
+      <Routes />
+    </>
+  );
 }
