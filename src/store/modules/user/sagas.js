@@ -10,10 +10,7 @@ export function* updateProfile({payload}) {
     const {name, email, ...rest} = payload.data;
 
     // eslint-disable-next-line prefer-object-spread
-    const profile = Object.assign(
-      {name, email, avatar_id},
-      rest.oldPassword ? rest : {},
-    );
+    const profile = Object.assign({name, email}, rest.oldPassword ? rest : {});
 
     const response = yield call(api.put, 'users', profile);
 
@@ -21,8 +18,6 @@ export function* updateProfile({payload}) {
 
     yield put(updateProfileSuccess(response.data));
   } catch (err) {
-    console.tron.log(err);
-
     Alert.alert(
       'Falha na atualização',
       'Erro ao atualizar perfil, confira seus dados',
