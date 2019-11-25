@@ -21,9 +21,11 @@ export function* updateProfile({payload}) {
 
     yield put(updateProfileSuccess(response.data));
   } catch (err) {
+    console.tron.log(err);
+
     Alert.alert(
       'Falha na atualização',
-      'Erro au atualizar perfil, confira seus dados',
+      'Erro ao atualizar perfil, confira seus dados',
     );
     yield put(updateProfileFailure());
   }
